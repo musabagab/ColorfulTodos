@@ -1,0 +1,2 @@
+rootProject.name='Colorful TODOs'
+include ':app'
