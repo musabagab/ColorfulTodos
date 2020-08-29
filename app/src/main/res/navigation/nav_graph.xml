@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/todosListFragment"
-        android:name="com.musabapps.colorfultodos.TodosListFragment"
+        android:name="com.musabapps.colorfultodos.TodoListFragment"
         android:label="@string/todos_list"
         tools:layout="@layout/fragment_todos_list" >
         <action
