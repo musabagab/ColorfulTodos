@@ -23,14 +23,14 @@ class TodoRepository {
     }
 
     fun getDate(): String {
+
         val juDate = Date()
         val dt = DateTime(juDate)
 
-        val month = dt.monthOfYear // where January is 1 and December is 12
-
+        val monthName = android.text.format.DateFormat.format("MMM", juDate)
         val day = dt.dayOfMonth
 
-        return "$day, $month"
+        return "$day, $monthName"
     }
 
 

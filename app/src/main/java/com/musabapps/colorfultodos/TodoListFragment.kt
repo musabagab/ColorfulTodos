@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.musabapps.colorfultodos.Model.Todo
 import com.musabapps.colorfultodos.Repository.TodoRepository
@@ -33,6 +34,14 @@ class TodoListFragment : Fragment() {
             Toast.makeText(requireContext(), clickedTodo.text, Toast.LENGTH_LONG).show()
         }
         binding.todoRecycler.adapter = todoAdapter
+        // Divider
+        binding.todoRecycler.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                LinearLayoutManager.VERTICAL
+            )
+        )
+
         // create the observer
         val todoListObserver = Observer<List<Todo>> { list ->
             todoAdapter.submitList(list)
