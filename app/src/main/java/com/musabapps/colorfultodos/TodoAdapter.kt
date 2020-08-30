@@ -13,8 +13,10 @@ class TodoViewHolder(
     view: View
 ) : RecyclerView.ViewHolder(view) {
     private val todoText = view.findViewById<TextView>(R.id.todoText)
+    private val createdDateText = view.findViewById<TextView>(R.id.createdDateText)
     fun bind(todo: Todo) {
         todoText.text = todo.text
+        createdDateText.text = todo.date
     }
 }
 

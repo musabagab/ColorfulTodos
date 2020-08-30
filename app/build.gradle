@@ -55,7 +55,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
     // viewmodel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-
+    // JodaTime
+    implementation 'net.danlew:android.joda:2.10.6.1'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
