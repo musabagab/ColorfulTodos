@@ -16,7 +16,6 @@ import com.musabapps.colorfultodos.databinding.FragmentTodosListBinding
 
 class TodoListFragment : Fragment() {
 
-    private val viewModel: TodoListFragmentViewModel = TodoListFragmentViewModel(TodoRepository())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +45,10 @@ class TodoListFragment : Fragment() {
         val todoListObserver = Observer<TodoListFragmentViewState> { viewState ->
             todoAdapter.submitList(viewState.todoList)
         }
+
+        val factory = TodoListFragmentViewModelFactory(TodoRepository())
+        val viewModel = factory.create(TodoListFragmentViewModel::class.java)
+
         // start observing
         viewModel.viewState.observe(viewLifecycleOwner, todoListObserver)
         // load the items
