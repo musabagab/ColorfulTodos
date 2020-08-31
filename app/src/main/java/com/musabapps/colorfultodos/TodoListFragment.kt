@@ -10,13 +10,14 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.musabapps.colorfultodos.Model.Todo
 import com.musabapps.colorfultodos.Repository.TodoRepository
 import com.musabapps.colorfultodos.databinding.FragmentTodosListBinding
 
 
 class TodoListFragment : Fragment() {
-    private val todoRepository = TodoRepository()
+
+    private val viewModel: TodoListFragmentViewModel = TodoListFragmentViewModel(TodoRepository())
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,16 +42,18 @@ class TodoListFragment : Fragment() {
                 LinearLayoutManager.VERTICAL
             )
         )
-
         // create the observer
-        val todoListObserver = Observer<List<Todo>> { list ->
-            todoAdapter.submitList(list)
+        val todoListObserver = Observer<TodoListFragmentViewState> { viewState ->
+            todoAdapter.submitList(viewState.todoList)
         }
         // start observing
-        todoRepository.todoList.observe(viewLifecycleOwner, todoListObserver)
-        // load the todos
-        todoRepository.loadTodo()
+        viewModel.viewState.observe(viewLifecycleOwner, todoListObserver)
+        // load the items
+        viewModel.loadData()
+
+
         return binding.root
     }
+
 
 }
