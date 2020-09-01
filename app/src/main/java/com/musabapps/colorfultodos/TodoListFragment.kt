@@ -34,7 +34,7 @@ class TodoListFragment : Fragment() {
             Toast.makeText(requireContext(), clickedTodo.text, Toast.LENGTH_LONG).show()
         }
         binding.todoRecycler.adapter = todoAdapter
-        // Divider
+        // Divider item
         binding.todoRecycler.addItemDecoration(
             DividerItemDecoration(
                 requireContext(),
