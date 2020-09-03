@@ -9,13 +9,10 @@ import com.musabapps.colorfultodos.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    val TAG = "Corotuine"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -25,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
         val controller = findNavController(R.id.nav_host_fragment_container)
         NavigationUI.setupWithNavController(binding.toolbar, controller, appBarConfiguration)
-
     }
 
 

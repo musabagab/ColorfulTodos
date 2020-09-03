@@ -7,33 +7,33 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.musabapps.colorfultodos.Model.Todo
+import com.musabapps.colorfultodos.database.TodoEntity
 
 class TodoViewHolder(
     view: View
 ) : RecyclerView.ViewHolder(view) {
     private val todoText = view.findViewById<TextView>(R.id.todoText)
     private val createdDateText = view.findViewById<TextView>(R.id.createdDateText)
-    fun bind(todo: Todo) {
+    fun bind(todo: TodoEntity) {
         todoText.text = todo.text
-        createdDateText.text = todo.date
+        createdDateText.text = todo.date.toString()
     }
 }
 
 class TodoAdapter(
-    private val clickHandler: (Todo) -> Unit
+    private val clickHandler: (TodoEntity) -> Unit
 
-) : ListAdapter<Todo, TodoViewHolder>(DIFF_CONFIG) {
+) : ListAdapter<TodoEntity, TodoViewHolder>(DIFF_CONFIG) {
 
     companion object {
-        val DIFF_CONFIG = object : DiffUtil.ItemCallback<Todo>() {
-            override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
+        val DIFF_CONFIG = object : DiffUtil.ItemCallback<TodoEntity>() {
+            override fun areItemsTheSame(oldItem: TodoEntity, newItem: TodoEntity): Boolean {
                 return oldItem === newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: Todo,
-                newItem: Todo
+                oldItem: TodoEntity,
+                newItem: TodoEntity
             ): Boolean {
                 return oldItem == newItem
             }

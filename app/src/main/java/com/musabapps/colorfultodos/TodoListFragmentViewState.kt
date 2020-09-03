@@ -1,5 +1,5 @@
 package com.musabapps.colorfultodos
 
-import com.musabapps.colorfultodos.Model.Todo
+import com.musabapps.colorfultodos.database.TodoEntity
 
-data class TodoListFragmentViewState(val todoList: List<Todo>)
+data class TodoListFragmentViewState(val todoList: List<TodoEntity>)
