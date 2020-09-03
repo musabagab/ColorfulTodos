@@ -23,7 +23,7 @@ class TodoListFragmentViewModel(
     private val _viewState = MutableLiveData<TodoListFragmentViewState>()
     val viewState: LiveData<TodoListFragmentViewState> = _viewState
 
-    fun loadData() {
+    suspend fun loadData() {
         _viewState.value = repo.loadTodo()
     }
 

@@ -16,7 +16,7 @@ class TodoViewHolder(
     private val createdDateText = view.findViewById<TextView>(R.id.createdDateText)
     fun bind(todo: TodoEntity) {
         todoText.text = todo.text
-        createdDateText.text = todo.date.toString()
+        createdDateText.text = todo.date
     }
 }
 

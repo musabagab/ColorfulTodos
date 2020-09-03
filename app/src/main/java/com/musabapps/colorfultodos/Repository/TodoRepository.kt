@@ -5,7 +5,8 @@ import com.musabapps.colorfultodos.database.TodoDao
 
 
 class TodoRepository(val todoDao: TodoDao) {
-    fun loadTodo(): TodoListFragmentViewState {
+
+    suspend fun loadTodo(): TodoListFragmentViewState {
         return TodoListFragmentViewState(
             todoList = todoDao.getAllTodo()
         )
