@@ -4,7 +4,7 @@ import com.musabapps.colorfultodos.TodoListFragmentViewState
 import com.musabapps.colorfultodos.database.TodoDao
 
 
-class TodoRepository(val todoDao: TodoDao) {
+class TodoRepository(private val todoDao: TodoDao) {
 
     suspend fun loadTodo(): TodoListFragmentViewState {
         return TodoListFragmentViewState(

@@ -1,30 +1,28 @@
 package com.musabapps.colorfultodos
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.liveData
 import com.musabapps.colorfultodos.Repository.TodoRepository
 
-class TodoListFragmentViewModelFactory(val repo: TodoRepository) :
+class TodoListFragmentViewModelFactory(
+    private val repo: TodoRepository
+) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TodoListFragmentViewModel::class.java)) {
             return TodoListFragmentViewModel(repo) as T
         }
-        throw IllegalArgumentException("Viewmode")
+        throw IllegalArgumentException("Viewmodel is unknown")
     }
 }
 
 class TodoListFragmentViewModel(
-    val repo: TodoRepository
+    private val repo: TodoRepository
 ) : ViewModel() {
-
-    private val _viewState = MutableLiveData<TodoListFragmentViewState>()
-    val viewState: LiveData<TodoListFragmentViewState> = _viewState
-
-    suspend fun loadData() {
-        _viewState.value = repo.loadTodo()
+    val viewState: LiveData<TodoListFragmentViewState> = liveData {
+        emit(repo.loadTodo())
     }
 
 }

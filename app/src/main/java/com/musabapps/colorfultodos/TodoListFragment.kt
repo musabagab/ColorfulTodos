@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -12,11 +13,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.musabapps.colorfultodos.Repository.TodoRepository
 import com.musabapps.colorfultodos.database.TodoDatabase
 import com.musabapps.colorfultodos.databinding.FragmentTodosListBinding
-import kotlinx.coroutines.launch
 
 
 class TodoListFragment : BaseFragment() {
-    private lateinit var factory: TodoListFragmentViewModelFactory
+
+    private lateinit var viewModelFactory: TodoListFragmentViewModelFactory
+    private val viewModel: TodoListFragmentViewModel by viewModels(
+        factoryProducer = {
+            viewModelFactory
+        }
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,23 +48,17 @@ class TodoListFragment : BaseFragment() {
                 LinearLayoutManager.VERTICAL
             )
         )
+        context?.let {
+            val databaseDao = TodoDatabase(it).getTodoDao()
+            viewModelFactory = TodoListFragmentViewModelFactory(TodoRepository(databaseDao))
+        }
         // create the observer
         val todoListObserver = Observer<TodoListFragmentViewState> { viewState ->
             todoAdapter.submitList(viewState.todoList)
         }
-
-        context?.let {
-            val databaseDao = TodoDatabase(it).getTodoDao()
-            factory = TodoListFragmentViewModelFactory(TodoRepository(databaseDao))
-        }
-        val viewModel = factory.create(TodoListFragmentViewModel::class.java)
-
         // start observing
         viewModel.viewState.observe(viewLifecycleOwner, todoListObserver)
-        // load the items
-        launch {
-            viewModel.loadData()
-        }
+
         return binding.root
     }
 
