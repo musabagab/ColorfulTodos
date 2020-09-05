@@ -7,16 +7,21 @@
 
     <fragment
         android:id="@+id/todosListFragment"
-        android:name="com.musabapps.colorfultodos.TodoListFragment"
+        android:name="com.musabapps.colorfultodos.TodoListFragment.TodoListFragment"
         android:label="@string/todos_list"
         tools:layout="@layout/fragment_todos_list" >
         <action
             android:id="@+id/action_todosListFragment_to_createTodoFragment"
             app:destination="@id/createTodoFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/createTodoFragment"
-        android:name="com.musabapps.colorfultodos.CreateTodoFragment"
+        android:name="com.musabapps.colorfultodos.CreateTodoFragment.CreateTodoFragment"
         android:label="@string/fragment_create_todo"
-        tools:layout="@layout/fragment_create_todo" />
+        tools:layout="@layout/fragment_create_todo" >
+        <action
+            android:id="@+id/action_createTodoFragment_to_todosListFragment"
+            app:destination="@id/todosListFragment" />
+    </fragment>
 </navigation>

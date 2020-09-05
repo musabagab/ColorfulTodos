@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         val controller = findNavController(R.id.nav_host_fragment_container)
         NavigationUI.setupWithNavController(binding.toolbar, controller, appBarConfiguration)
+
     }
 
 

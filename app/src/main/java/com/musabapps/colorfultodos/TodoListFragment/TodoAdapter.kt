@@ -1,4 +1,4 @@
-package com.musabapps.colorfultodos
+package com.musabapps.colorfultodos.TodoListFragment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.musabapps.colorfultodos.R
 import com.musabapps.colorfultodos.database.TodoEntity
 
 class TodoViewHolder(
@@ -23,7 +24,9 @@ class TodoViewHolder(
 class TodoAdapter(
     private val clickHandler: (TodoEntity) -> Unit
 
-) : ListAdapter<TodoEntity, TodoViewHolder>(DIFF_CONFIG) {
+) : ListAdapter<TodoEntity, TodoViewHolder>(
+    DIFF_CONFIG
+) {
 
     companion object {
         val DIFF_CONFIG = object : DiffUtil.ItemCallback<TodoEntity>() {
@@ -44,7 +47,9 @@ class TodoAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.todo_recyler_item, parent, false)
-        return TodoViewHolder(itemView)
+        return TodoViewHolder(
+            itemView
+        )
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, postion: Int) {
