@@ -20,28 +20,33 @@ class TodoListFragmentViewModelFactory(
 class TodoListFragmentViewModel(
     private val repo: TodoRepository
 ) : ViewModel() {
+
+    private val _viewState: MutableLiveData<TodoListFragmentViewState> = MutableLiveData()
+    val viewState: LiveData<TodoListFragmentViewState> = _viewState
+
+    init {
+        loadTodoList()
+    }
+
     fun deleteTodo(todoEntity: TodoEntity?) {
         viewModelScope.launch {
             repo.deleteTodo(todoEntity)
+            // update the state
+            _viewState.value?.let {
+                val newList = it.todoList.toMutableList()
+                newList.remove(todoEntity)
+                // notify the listeners
+                _viewState.value = TodoListFragmentViewState(todoList = newList)
+            }
+
         }
     }
 
-    fun refreshList(newList: MutableList<TodoEntity>) {
-        viewState = liveData {
-            emit(TodoListFragmentViewState(todoList = newList))
+    private fun loadTodoList() {
+        viewModelScope.launch {
+            val loadState = repo.loadTodo()
+            _viewState.value = loadState
         }
-    }
-
-    fun removeItem(todoAdapter: TodoAdapter, adapterPosition: Int) {
-        val currentList = todoAdapter.currentList.toMutableList()
-        currentList.removeAt(adapterPosition)
-        refreshList(currentList)
-        todoAdapter.notifyItemRemoved(adapterPosition)
-    }
-
-
-    var viewState: LiveData<TodoListFragmentViewState> = liveData {
-        emit(repo.loadTodo())
     }
 
 }

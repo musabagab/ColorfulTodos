@@ -11,10 +11,13 @@ class TodoRepository(private val todoDao: TodoDao) {
         todoList = todoDao.getAllTodo()
     )
 
-    suspend fun deleteTodo(todoEntity: TodoEntity?) {
+    suspend fun deleteTodo(todoEntity: TodoEntity?): TodoListFragmentViewState {
         todoEntity?.let { todo ->
             todoDao.deleteTodo(todo)
         }
+        return TodoListFragmentViewState(
+            todoList = todoDao.getAllTodo()
+        )
 
     }
 }

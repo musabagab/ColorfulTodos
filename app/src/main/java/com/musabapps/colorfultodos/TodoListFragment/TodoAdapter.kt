@@ -40,7 +40,6 @@ class TodoAdapter(
             ): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 

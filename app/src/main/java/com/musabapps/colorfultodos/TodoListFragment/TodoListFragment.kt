@@ -65,14 +65,10 @@ class TodoListFragment : Fragment() {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val position = viewHolder.adapterPosition
+                    val todo = todoAdapter.currentList[position]
                     // delete from the database
-                    viewModel.deleteTodo(todoAdapter.currentList[viewHolder.adapterPosition])
-                    // remove from the todoAdapter list
-                    viewModel.removeItem(
-                        todoAdapter,
-                        viewHolder.adapterPosition
-                    )
-
+                    viewModel.deleteTodo(todo)
                 }
 
             }
@@ -85,10 +81,8 @@ class TodoListFragment : Fragment() {
         }
         // create the observer
         val todoListObserver = Observer<TodoListFragmentViewState> { viewState ->
-
             binding.progressBar.visibility = View.GONE
             binding.todoRecycler.visibility = View.VISIBLE
-
             todoAdapter.submitList(viewState.todoList)
         }
         // start observing
