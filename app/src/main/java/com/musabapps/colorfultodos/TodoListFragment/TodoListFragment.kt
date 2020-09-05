@@ -82,6 +82,11 @@ class TodoListFragment : Fragment() {
         // create the observer
         val todoListObserver = Observer<TodoListFragmentViewState> { viewState ->
             binding.progressBar.visibility = View.GONE
+            if (viewState.todoList.isNotEmpty()) {
+                binding.EmptyStateText.visibility = View.GONE
+            } else {
+                binding.EmptyStateText.visibility = View.VISIBLE
+            }
             binding.todoRecycler.visibility = View.VISIBLE
             todoAdapter.submitList(viewState.todoList)
         }

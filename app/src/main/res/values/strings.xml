@@ -7,4 +7,5 @@
     <string name="fragment_create_todo">Create New Todo</string>
     <string name="todo_hint">Todo Title:</string>
     <string name="create_todo">Create Todo</string>
+    <string name="empty_state_text">No Data to show</string>
 </resources>
