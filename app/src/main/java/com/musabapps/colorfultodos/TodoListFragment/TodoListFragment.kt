@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.musabapps.colorfultodos.Repository.TodoRepository
 import com.musabapps.colorfultodos.database.TodoDatabase
 import com.musabapps.colorfultodos.databinding.FragmentTodosListBinding
+import com.musabapps.colorfultodos.gone
+import com.musabapps.colorfultodos.visible
 
 
 class TodoListFragment : Fragment() {
@@ -70,7 +72,6 @@ class TodoListFragment : Fragment() {
                     // delete from the database
                     viewModel.deleteTodo(todo)
                 }
-
             }
 
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
@@ -81,13 +82,13 @@ class TodoListFragment : Fragment() {
         }
         // create the observer
         val todoListObserver = Observer<TodoListFragmentViewState> { viewState ->
-            binding.progressBar.visibility = View.GONE
             if (viewState.todoList.isNotEmpty()) {
-                binding.EmptyStateText.visibility = View.GONE
+                binding.EmptyStateText.gone()
             } else {
-                binding.EmptyStateText.visibility = View.VISIBLE
+                binding.EmptyStateText.visible()
             }
-            binding.todoRecycler.visibility = View.VISIBLE
+            binding.todoRecycler.visible()
+
             todoAdapter.submitList(viewState.todoList)
         }
         // start observing

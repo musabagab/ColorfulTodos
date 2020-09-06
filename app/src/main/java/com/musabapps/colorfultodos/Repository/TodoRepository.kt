@@ -18,6 +18,9 @@ class TodoRepository(private val todoDao: TodoDao) {
         return TodoListFragmentViewState(
             todoList = todoDao.getAllTodo()
         )
+    }
 
+    suspend fun addTodo(todoEntity: TodoEntity) {
+        todoDao.addTodo(todoEntity)
     }
 }
