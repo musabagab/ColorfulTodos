@@ -28,25 +28,23 @@ class TodoListFragmentViewModel(
         loadTodoList()
     }
 
-    fun deleteTodo(todoEntity: TodoEntity?) {
-        viewModelScope.launch {
-            repo.deleteTodo(todoEntity)
-            // update the state
-            _viewState.value?.let {
-                val newList = it.todoList.toMutableList()
-                newList.remove(todoEntity)
-                // notify the listeners
-                _viewState.value = TodoListFragmentViewState(todoList = newList)
-            }
-
+    fun deleteTodo(todoEntity: TodoEntity?) = viewModelScope.launch {
+        repo.deleteTodo(todoEntity)
+        // update the state
+        _viewState.value?.let {
+            val newList = it.todoList.toMutableList()
+            newList.remove(todoEntity)
+            // notify the listeners
+            _viewState.value = TodoListFragmentViewState(todoList = newList)
         }
+
     }
 
-    private fun loadTodoList() {
-        viewModelScope.launch {
-            val loadState = repo.loadTodo()
-            _viewState.value = loadState
-        }
+
+    private fun loadTodoList() = viewModelScope.launch {
+        val loadState = repo.loadTodo()
+        _viewState.value = loadState
     }
+
 
 }

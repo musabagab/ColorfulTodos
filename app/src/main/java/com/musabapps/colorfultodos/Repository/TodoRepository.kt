@@ -20,7 +20,6 @@ class TodoRepository(private val todoDao: TodoDao) {
         )
     }
 
-    suspend fun addTodo(todoEntity: TodoEntity) {
-        todoDao.addTodo(todoEntity)
-    }
+    suspend fun addTodo(todoEntity: TodoEntity) = todoDao.addTodo(todoEntity)
+
 }

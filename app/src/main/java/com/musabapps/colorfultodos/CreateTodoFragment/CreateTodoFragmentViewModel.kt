@@ -23,10 +23,9 @@ class CreateTodoFragmentViewModelFactory(
 class CreateTodoFragmentViewModel(
     private val repo: TodoRepository
 ) : ViewModel() {
-    fun addTodo(todoText: String) {
-        val todo = TodoEntity(text = todoText, date = Date().toString())
+    fun addTodo(todoText: String) =
         viewModelScope.launch {
-            repo.addTodo(todo)
+            repo.addTodo(TodoEntity(text = todoText, date = Date().toString()))
         }
-    }
+
 }
