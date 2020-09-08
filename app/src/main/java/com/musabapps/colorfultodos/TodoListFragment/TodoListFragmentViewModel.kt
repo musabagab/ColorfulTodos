@@ -40,6 +40,17 @@ class TodoListFragmentViewModel(
 
     }
 
+    fun reInsertTodo(
+        todoEntity: TodoEntity,
+        fullList: MutableList<TodoEntity>
+    ) {
+        viewModelScope.launch {
+            repo.addTodo(todoEntity)
+            fullList.add(todoEntity)
+            _viewState.value = TodoListFragmentViewState(todoList = fullList)
+        }
+    }
+
 
     private fun loadTodoList() = viewModelScope.launch {
         val loadState = repo.loadTodo()
